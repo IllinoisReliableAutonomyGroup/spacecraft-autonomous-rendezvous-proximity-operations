@@ -1,4 +1,4 @@
-# Sensor programs for spacecraft rendezvous and docking: artifact
+# Spacecraft Autonomous Rendezvous and Proximity Operations: verified with sensor programs
 
 Companion artifact for *Verifying Autonomous Spacecraft Rendezvous and Docking with Sensor Programs* (Alex Yuan, Kristina Miller,
 Sayan Mitra; submitted to TACAS 2027). It pins the exact code that produced the paper's results and lets every row of the results
@@ -89,8 +89,8 @@ The spacecraft models (dynamics, controllers, sensor programs, run scripts) live
 Docker (Linux x86-64 or arm64; ~10 minutes to build, CPU only):
 
 ```sh
-git clone https://github.com/IllinoisReliableAutonomyGroup/sensor-programs-tacas27.git
-cd sensor-programs-tacas27
+git clone https://github.com/IllinoisReliableAutonomyGroup/spacecraft-autonomous-rendezvous-proximity-operations.git
+cd spacecraft-autonomous-rendezvous-proximity-operations
 git submodule update --init          # not --recursive: the auto_LiRPA fork references a nested submodule without a URL
 docker build -t sensor-programs .
 docker run --rm -it -v "$PWD/out:/workspace/out" sensor-programs bash run_row.sh rdv-2        # 10 s smoke test
@@ -101,8 +101,8 @@ docker run --rm -it -v "$PWD/out:/workspace/out" sensor-programs bash run_row.sh
 Native (macOS or Linux, Python 3.10 or 3.11):
 
 ```sh
-git clone https://github.com/IllinoisReliableAutonomyGroup/sensor-programs-tacas27.git
-cd sensor-programs-tacas27
+git clone https://github.com/IllinoisReliableAutonomyGroup/spacecraft-autonomous-rendezvous-proximity-operations.git
+cd spacecraft-autonomous-rendezvous-proximity-operations
 bash env/native.sh python3.10            # runs `git submodule update --init` itself            # creates ./venv and prepares the submodule
 VENV=./venv bash run_row.sh rdv-2
 ```

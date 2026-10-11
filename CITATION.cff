@@ -10,7 +10,7 @@ authors:
   - family-names: Mitra
     given-names: Sayan
     affiliation: "University of Illinois Urbana-Champaign"
-repository-code: "https://github.com/IllinoisReliableAutonomyGroup/sensor-programs-tacas27"
+repository-code: "https://github.com/IllinoisReliableAutonomyGroup/spacecraft-autonomous-rendezvous-proximity-operations"
 license: NCSA
 date-released: 2026-10-10
 preferred-citation:
