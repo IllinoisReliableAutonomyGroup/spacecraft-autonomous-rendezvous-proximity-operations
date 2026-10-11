@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this artifact, please cite the paper below."
-title: "Artifact: Verifying Autonomous Spacecraft Rendezvous and Docking with Sensor Programs"
+title: "Artifact: Verifying Autonomous Spacecraft Proximity Operations with Observation-Guarded Hybrid Systems"
 type: software
 authors:
   - family-names: Yuan
@@ -15,7 +15,7 @@ license: NCSA
 date-released: 2026-10-10
 preferred-citation:
   type: conference-paper
-  title: "Verifying Autonomous Spacecraft Rendezvous and Docking with Sensor Programs"
+  title: "Verifying Autonomous Spacecraft Proximity Operations with Observation-Guarded Hybrid Systems"
   authors:
     - family-names: Yuan
       given-names: Alex

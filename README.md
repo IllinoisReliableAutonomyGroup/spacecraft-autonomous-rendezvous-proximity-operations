@@ -1,8 +1,24 @@
-# Spacecraft Autonomous Rendezvous and Proximity Operations: verified with sensor programs
+# Verifying Autonomous Spacecraft Proximity Operations with Observation-Guarded Hybrid Systems
 
-Companion artifact for *Verifying Autonomous Spacecraft Rendezvous and Docking with Sensor Programs* (Alex Yuan, Kristina Miller,
-Sayan Mitra; submitted to TACAS 2027). It pins the exact code that produced the paper's results and lets every row of the results
-table be re-run with one command.
+Artifact and scenario models
+
+Companion artifact for *Verifying Autonomous Spacecraft Proximity Operations with Observation-Guarded Hybrid Systems*
+(Alex Yuan, Kristina Miller, Sayan Mitra; submitted to TACAS 2027). It pins the exact code that produced the paper's results and
+lets every row of the results table be re-run with one command.
+
+The paper verifies autonomous proximity operations (APO), in which a deputy spacecraft closes on a chief, under the sensor suite
+that real missions use: a ground station, an angles-only camera, and a proximity sensor that become available at different ranges
+and drive the switching between control modes. Two extensions of hybrid-system verification make this possible, both implemented
+in the [Verse](https://github.com/AutoVerse-ai/Verse-library) library:
+
+* **Observation-guarded hybrid systems**: automata whose discrete transitions are guarded by an observation produced by a sensor
+  function of the joint state of all agents, so a sensor can be changed without rederiving the controller's guards.
+* **The sensor parser**: reachability over such a model must evaluate the sensor on sets; the parser lifts a sensor written as a
+  composition of primitives to a set-valued operator automatically, and preserves the circular structure of angles so that a
+  bearing straddling the ±π cut does not collapse to the whole range.
+
+With these, docking, avoidance, multi-spacecraft tracking, and coordinate-free rendezvous scenarios in joint state spaces of 8 to
+54 dimensions are verified against mission requirements, in seconds to about an hour on a laptop.
 
 Reliable Autonomy Group, University of Illinois Urbana-Champaign. Code of the Verse library and of this artifact is under the
 University of Illinois/NCSA Open Source License (see `LICENSE`).
@@ -19,10 +35,10 @@ to the chief, and the 5 km proximity zone, which turns active with one-second up
 
 ![From mission geometry to set-valued verification](figures/pipeline.png)
 
-*The pipeline of the paper: (a) the ARPOD mission geometry with ground updates, angles-only bearings, and the proximity sensor;
-(b) the modular hybrid model whose discrete logic reads observations produced by a sensor program; (c) the set-lifted model, where
-the sensor parser lifts the sensor program to sets while Verse lifts guards, resets, and flows; (d) the resulting reachable sets
-(blue) against nominal simulations (red).*
+*Figure 1 of the paper: (a) the APO mission geometry with ground updates, angles-only bearings, and the proximity sensor;
+(b) the hybrid model used for point-valued simulation, whose discrete logic reads observations produced by the sensor function;
+(c) the same model lifted to sets, where the sensor parser turns the sensor into a set-valued operator and Verse lifts guards,
+resets, and flows; (d) the resulting reachability analysis (blue) against nominal simulations (red).*
 
 <table>
 <tr>
@@ -73,11 +89,24 @@ ratios on envelopes of 25 random simulations.
 Verdicts: *verified* when the containment or emptiness check holds on the computed sets; *violated* when a concrete trajectory
 witnesses the failure; *inconclusive* when the over-approximation meets the unsafe set and no witness is available.
 
+**What the results show**, beyond the verdicts (the paper's lessons for multi-agent verification):
+
+1. Verification time is governed by the density of discrete transitions, not by the dimension of the joint state space: the
+   three-agent scenario at 54 dimensions verifies in less time than the single-agent docking maneuver whose proximity sensor
+   fires every second.
+2. What limits certification is the precision of the agents' state estimates, and the conservatism of the lifted observation
+   accumulates across agents: the multi-agent scenarios return inconclusive under nominal sensing and verify once the initial
+   estimate is tightened (the `|e⁰| ≤ 1` rows).
+3. Keeping the requirement on the true joint state separate from the condition on an agent's own estimate localizes failures,
+   and sweeping the sensing parameters turns a verdict into an envelope of sensor quality: for docking the goal holds throughout,
+   while the entry condition is verified at 10 and 15 minute update periods, inconclusive at 0.75 km noise or a 20 minute period,
+   and violated with a simulated witness at 1.0 km (see `expected_results.md`).
+
 ## What is pinned
 
 | component | where | pinned at |
 |---|---|---|
-| Verse (hybrid-system reachability library with the sensor-program parser and `verify_partitioned`) | submodule `verse/` → [AutoVerse-ai/Verse-library](https://github.com/AutoVerse-ai/Verse-library) | tag `tacas27-sensor-programs` (commit 6a6c87a, branch `satellite_models`) |
+| Verse (hybrid-system reachability library, here with observation-guarded transitions, the sensor parser, and `verify_partitioned`) | submodule `verse/` → [AutoVerse-ai/Verse-library](https://github.com/AutoVerse-ai/Verse-library) | tag `tacas27-sensor-programs` (commit 6a6c87a, branch `satellite_models`) |
 | auto_LiRPA (CROWN bound propagation), Alex Yuan's fork with the Verse bridge | submodule `auto_LiRPA/` → [IllinoisReliableAutonomyGroup/auto_LiRPA](https://github.com/IllinoisReliableAutonomyGroup/auto_LiRPA) | commit 711153a |
 | Python packages | `requirements-pinned.txt` | versions of the run environment (torch 2.3.1 CPU, cvxpy 1.6.6, highspy 1.11.0, numpy 1.26.4, …) |
 
@@ -133,7 +162,12 @@ env/native.sh         native environment setup
 Dockerfile            reproduction image
 ```
 
-## Properties checked (Section 3.4 and 5.1 of the paper)
+## Scenarios and properties checked
+
+The paper's four scenario families and their ids here: docking (`apo-dock`), avoidance of an obstacle (`apo-avoid`),
+multi-spacecraft track switching (`apo-track-2`, `apo-track-3`), and coordinate-free rendezvous of bearing-only agents (`rdv-2`,
+`rdv-3`). Each is checked against a mission requirement on the true joint state; the docking scenario also checks a condition on the
+deputy's own estimate, which is where the sensing pipeline bears on the result.
 
 * `apo-dock`: goal containment, every leaf of the execution tree (branch ended by the 100 m stop rule or by the horizon) lies
   within ε_G = 10 km of the chief; mode-entry condition, the estimated position at the Docking transition lies in
@@ -175,7 +209,7 @@ If you use this artifact, cite the paper and the Verse library it extends:
 ```
 @inproceedings{yuan2027sensorprograms,
   author    = {Alex Yuan and Kristina Miller and Sayan Mitra},
-  title     = {Verifying Autonomous Spacecraft Rendezvous and Docking with Sensor Programs},
+  title     = {Verifying Autonomous Spacecraft Proximity Operations with Observation-Guarded Hybrid Systems},
   booktitle = {Tools and Algorithms for the Construction and Analysis of Systems (TACAS 2027)},
   year      = {2027},
   note      = {Submitted}
