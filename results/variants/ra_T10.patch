@@ -1,0 +1,13 @@
+diff --git a/demo/aprod/orbital_ra_controller_gpa.py b/demo/aprod/orbital_ra_controller_gpa.py
+index fd718d3..9175fe6 100644
+--- a/demo/aprod/orbital_ra_controller_gpa.py
++++ b/demo/aprod/orbital_ra_controller_gpa.py
+@@ -50,7 +50,7 @@ class State:
+ 
+ def decisionLogic(ego: State, others: List[State]) -> State:
+     output = copy.deepcopy(ego)
+-    if ego.timer >= 900: # presumably going to add other conditions as well 
++    if ego.timer >= 600: # presumably going to add other conditions as well 
+         output.go_mode = GOMode.Active
+         output.timer = 0
+         # output.po_timer = 0

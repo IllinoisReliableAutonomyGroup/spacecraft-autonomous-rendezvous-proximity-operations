@@ -1,0 +1,6 @@
+[submodule "verse"]
+	path = verse
+	url = https://github.com/AutoVerse-ai/Verse-library.git
+[submodule "auto_LiRPA"]
+	path = auto_LiRPA
+	url = https://github.com/IllinoisReliableAutonomyGroup/auto_LiRPA.git

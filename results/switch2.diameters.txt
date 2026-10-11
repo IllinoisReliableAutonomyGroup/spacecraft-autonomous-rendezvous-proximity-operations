@@ -1,0 +1,2 @@
+F/I: 0.546, A/I: 0.681
+ raw final: 40.93, raw average: 51.08, raw initial: 75 (computed from the saved tree with time_step_diameter_rect; the script print failed on an undefined timer)

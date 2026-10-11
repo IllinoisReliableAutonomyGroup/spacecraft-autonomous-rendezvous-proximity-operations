@@ -1,0 +1,13 @@
+diff --git a/demo/aprod/orbital_ra_sensor_gpa.py b/demo/aprod/orbital_ra_sensor_gpa.py
+index ecb9c08..c459fa3 100644
+--- a/demo/aprod/orbital_ra_sensor_gpa.py
++++ b/demo/aprod/orbital_ra_sensor_gpa.py
+@@ -3,7 +3,7 @@ from scipy.optimize import minimize, OptimizeResult
+ from prox_error_all_bounds import box_extreme_error, angular_span_between_rects, angular_bounds_diff
+ from distance_bounds import dist_extrema
+ 
+-epsilon = 0.5
++epsilon = 0.25
+ # epsilon = 1
+ epsilon_vel = 0.000001
+ 

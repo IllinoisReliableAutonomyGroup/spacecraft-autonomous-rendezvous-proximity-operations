@@ -1,0 +1,13 @@
+diff --git a/demo/aprod/orbital_docking_sensor_gpa_parser_wrapper_freq.py b/demo/aprod/orbital_docking_sensor_gpa_parser_wrapper_freq.py
+index bc951e6..2c0b2e7 100644
+--- a/demo/aprod/orbital_docking_sensor_gpa_parser_wrapper_freq.py
++++ b/demo/aprod/orbital_docking_sensor_gpa_parser_wrapper_freq.py
+@@ -5,7 +5,7 @@ from sensor_parser import parsed_sensor
+ from parsed_wrap import parse_function, parse_function_array
+ from verse.utils.utils import wrap_to_pi
+ 
+-epsilon = 0.5
++epsilon = 1.0
+ epsilon_vel = 0.00001
+ 
+ # ep_rho = 2.5

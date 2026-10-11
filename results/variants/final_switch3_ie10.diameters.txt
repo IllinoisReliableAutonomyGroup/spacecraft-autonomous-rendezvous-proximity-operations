@@ -1,0 +1,4 @@
+F/I: 0.82299, A/I: 0.74532
+ raw final: 86.41353, raw average: 78.25877, raw initial: 105.00000
+Sim results: F/I: 0.14011, A/I: 0.31756
+ raw final: 14.71155, raw average: 33.34365

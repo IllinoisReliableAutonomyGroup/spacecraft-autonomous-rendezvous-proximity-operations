@@ -1,0 +1,13 @@
+diff --git a/demo/aprod/orbital_docking_controller_gpa_parser_freq.py b/demo/aprod/orbital_docking_controller_gpa_parser_freq.py
+index a1bc330..34cec8b 100644
+--- a/demo/aprod/orbital_docking_controller_gpa_parser_freq.py
++++ b/demo/aprod/orbital_docking_controller_gpa_parser_freq.py
+@@ -44,7 +44,7 @@ class State:
+ 
+ def decisionLogic(ego: State, others: List[State]) -> State:
+     output = copy.deepcopy(ego)
+-    if ego.timer >= 900 and ego.go_mode != GOMode.Active: # presumably going to add other conditions as well 
++    if ego.timer >= 600 and ego.go_mode != GOMode.Active: # presumably going to add other conditions as well 
+         output.go_mode = GOMode.Active 
+         # output.po_mode = POMode.Active
+         output.timer = 0

@@ -1,0 +1,2 @@
+F/I: 0.57524, A/I: 0.66252
+ raw final: 25.88582, raw average: 29.81320, raw initial: 45.00000
