@@ -137,9 +137,10 @@ Dockerfile            reproduction image
 
 ## Tested on
 
-The native path on macOS 15 (Apple M2, Python 3.10, 2026-10-10): fresh clone, `git submodule update --init --depth 1`,
-`prepare.sh`, then `run_row.sh rdv-2` and `run_row.sh apo-avoid` reproduced the expected verdicts and numbers. The Docker image
-runs the same steps but was not built on that machine; please report problems through the issue tracker.
+* Native path on macOS 15 (Apple M2, Python 3.10, 2026-10-10): fresh clone, `git submodule update --init --depth 1`,
+  `prepare.sh`, then `run_row.sh rdv-2` and `run_row.sh apo-avoid` reproduced the expected verdicts and numbers.
+* Docker path on GitHub's `ubuntu-latest` runner (x86-64, CPU only), by the `smoke` workflow on every push: image build plus the
+  same two rows, with the reach-avoid certified separation checked against `expected_results.md`. Green as of 2026-10-11.
 
 ## Known quirks (handled by `prepare.sh` and `run_row.sh`)
 
