@@ -45,7 +45,7 @@ case $row in
   apo-dock*)   $PY scripts/verdicts.py "$V" "$tree" --eps-g 10 --v-g 1e9 --box 8.5 -73 2.5 2 --json "$OUT/verdict.json" | grep 'MISSION\|MODE-ENTRY\|entry into' ;;
   apo-avoid*)  $PY scripts/pair_separation.py "$V" "$tree" | tee "$OUT/separation.txt"; echo "property: deputy stays >= 2.5 km from the obstacle (verified iff the certified separation above is >= 2.5)" ;;
   apo-track*)  $PY scripts/pair_separation.py "$V" "$tree" | tee "$OUT/separation.txt"; echo "property: deputies stay >= 5 km apart (verified iff every certified separation above is >= 5)" ;;
-  rdv-*)       $PY scripts/pair_separation.py "$V" "$tree" | tee "$OUT/separation.txt"; echo "property: every agent Complete by the horizon within 3.1 m of its partner, no two agents within 1 m (see expected_results.md for the leaf check)" ;;
+  rdv-*)       $PY scripts/pair_separation.py "$V" "$tree" --unit m | tee "$OUT/separation.txt"; echo "property: every agent Complete by the horizon within 3.1 m of its partner, no two agents within 1 m (see expected_results.md for the leaf check)" ;;
   tools-baseline) echo "cross-tool baseline: compare runtime and F/I with expected_results.md" ;;
 esac
 echo "== $row: outputs in $OUT =="

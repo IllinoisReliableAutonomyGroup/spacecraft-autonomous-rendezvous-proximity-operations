@@ -10,7 +10,7 @@ usage: python pair_separation.py <verse_repo_root> <tree.json> [--pos 1 2 3]
 import sys, os, argparse, itertools
 import numpy as np
 
-ap = argparse.ArgumentParser(); ap.add_argument("repo"); ap.add_argument("tree"); ap.add_argument("--pos", type=int, nargs=3, default=[1, 2, 3])
+ap = argparse.ArgumentParser(); ap.add_argument("repo"); ap.add_argument("tree"); ap.add_argument("--pos", type=int, nargs=3, default=[1, 2, 3]); ap.add_argument("--unit", default="km", help="length unit of the model, for printing only")
 a = ap.parse_args()
 sys.path.insert(0, os.path.abspath(a.repo))
 from verse.analysis.analysis_tree import AnalysisTree
@@ -33,4 +33,4 @@ for p, q in itertools.combinations(agents, 2):
         if dmin[j] < lo_min:
             lo_min, hi_min, t_at, node_at = float(dmin[j]), float(dmax[j]), float(A[2 * j, 0]), k
     best[(p, q)] = (lo_min, hi_min, t_at, node_at)
-    print(f"{p} vs {q}: min lower-bound separation {lo_min:.3f} km (upper bound there {hi_min:.3f} km) at t={t_at:.0f} s, node {node_at}")
+    print(f"{p} vs {q}: min lower-bound separation {lo_min:.3f} {a.unit} (upper bound there {hi_min:.3f} {a.unit}) at t={t_at:.0f} s, node {node_at}")

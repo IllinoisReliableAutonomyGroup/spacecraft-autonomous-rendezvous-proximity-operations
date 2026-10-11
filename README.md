@@ -123,6 +123,12 @@ Dockerfile            reproduction image
 * `apo-track`: deputies never come within 5 km of each other.
 * `rdv`: every agent reaches `Complete` by the horizon within 3.1 m of its partner, and no two agents come within 1 m.
 
+## Tested on
+
+The native path on macOS 15 (Apple M2, Python 3.10, 2026-10-10): fresh clone, `git submodule update --init --depth 1`,
+`prepare.sh`, then `run_row.sh rdv-2` and `run_row.sh apo-avoid` reproduced the expected verdicts and numbers. The Docker image
+runs the same steps but was not built on that machine; please report problems through the issue tracker.
+
 ## Known quirks (handled by `prepare.sh` and `run_row.sh`)
 
 * Three paper scripts have `scenario.verify` commented out in the committed branch (the authors last ran them for simulation
