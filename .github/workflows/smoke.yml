@@ -1,0 +1,24 @@
+name: smoke
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  docker-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: submodules (one level; the auto_LiRPA fork has a URL-less nested submodule)
+        run: git submodule update --init --depth 1
+      - name: build image
+        run: docker build -t sensor-programs .
+      - name: run the two smoke rows inside the image
+        run: |
+          mkdir -p out
+          docker run --rm -v "$PWD/out:/workspace/out" sensor-programs bash run_row.sh rdv-2
+          docker run --rm -v "$PWD/out:/workspace/out" sensor-programs bash run_row.sh apo-avoid
+      - name: check the reach-avoid certified separation against expected_results.md (2.75 km)
+        run: grep -q 'min lower-bound separation 2.7' out/apo-avoid/separation.txt
+      - uses: actions/upload-artifact@v4
+        with: { name: smoke-outputs, path: out, retention-days: 14 }

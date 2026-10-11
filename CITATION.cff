@@ -1,0 +1,45 @@
+cff-version: 1.2.0
+message: "If you use this artifact, please cite the paper below."
+title: "Artifact: Verifying Autonomous Spacecraft Rendezvous and Docking with Sensor Programs"
+type: software
+authors:
+  - family-names: Yuan
+    given-names: Alex
+  - family-names: Miller
+    given-names: Kristina
+  - family-names: Mitra
+    given-names: Sayan
+    affiliation: "University of Illinois Urbana-Champaign"
+repository-code: "https://github.com/IllinoisReliableAutonomyGroup/sensor-programs-tacas27"
+license: NCSA
+date-released: 2026-10-10
+preferred-citation:
+  type: conference-paper
+  title: "Verifying Autonomous Spacecraft Rendezvous and Docking with Sensor Programs"
+  authors:
+    - family-names: Yuan
+      given-names: Alex
+    - family-names: Miller
+      given-names: Kristina
+    - family-names: Mitra
+      given-names: Sayan
+  collection-title: "Tools and Algorithms for the Construction and Analysis of Systems (TACAS 2027)"
+  year: 2027
+  notes: "Submitted"
+references:
+  - type: conference-paper
+    title: "Verse: A Python Library for Reasoning About Multi-agent Hybrid System Scenarios"
+    authors:
+      - family-names: Li
+        given-names: Yangge
+      - family-names: Zhu
+        given-names: Haoqing
+      - family-names: Braught
+        given-names: Katherine
+      - family-names: Shen
+        given-names: Keyi
+      - family-names: Mitra
+        given-names: Sayan
+    collection-title: "Computer Aided Verification (CAV 2023), LNCS 13964"
+    year: 2023
+    doi: 10.1007/978-3-031-37706-8_18

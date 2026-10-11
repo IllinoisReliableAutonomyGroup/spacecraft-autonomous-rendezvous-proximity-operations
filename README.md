@@ -96,6 +96,9 @@ Full table reproduction, sequentially on a laptop, takes about 2.5 hours; the do
 
 ## Layout
 
+`make smoke` runs the two fast rows, `make all` the whole table, `make sensitivity` the Section 5.3 configurations; the
+GitHub Actions workflow builds the Docker image and runs the smoke rows on every push.
+
 ```
 run_row.sh            one table row or sensitivity configuration, end to end
 prepare.sh            fixes applied to the Verse submodule working tree (idempotent)
@@ -149,6 +152,8 @@ runs the same steps but was not built on that machine; please report problems th
 
 ## Citation
 
+If you use this artifact, cite the paper and the Verse library it extends:
+
 ```
 @inproceedings{yuan2027sensorprograms,
   author    = {Alex Yuan and Kristina Miller and Sayan Mitra},
@@ -156,5 +161,37 @@ runs the same steps but was not built on that machine; please report problems th
   booktitle = {Tools and Algorithms for the Construction and Analysis of Systems (TACAS 2027)},
   year      = {2027},
   note      = {Submitted}
+}
+```
+
+Verse (the reachability library) and DryVR (its continuous post):
+
+```
+@inproceedings{li2023verse,
+  author    = {Yangge Li and Haoqing Zhu and Katherine Braught and Keyi Shen and Sayan Mitra},
+  title     = {Verse: A {Python} Library for Reasoning About Multi-agent Hybrid System Scenarios},
+  booktitle = {Computer Aided Verification (CAV 2023)},
+  editor    = {Constantin Enea and Akash Lal},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {13964},
+  pages     = {351--364},
+  publisher = {Springer},
+  address   = {Cham},
+  year      = {2023},
+  doi       = {10.1007/978-3-031-37706-8_18}
+}
+
+@inproceedings{dryvr,
+  author    = {Chuchu Fan and Bolun Qi and Sayan Mitra and Mahesh Viswanathan},
+  title     = {{DryVR}: Data-Driven Verification and Compositional Reasoning for Automotive Systems},
+  booktitle = {Computer Aided Verification (CAV 2017)},
+  editor    = {Rupak Majumdar and Viktor Kun{\v{c}}ak},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {10426},
+  pages     = {441--461},
+  publisher = {Springer},
+  address   = {Cham},
+  year      = {2017},
+  doi       = {10.1007/978-3-319-63387-9_22}
 }
 ```
