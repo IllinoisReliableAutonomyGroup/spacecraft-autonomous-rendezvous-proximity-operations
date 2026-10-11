@@ -9,6 +9,14 @@ University of Illinois/NCSA Open Source License (see `LICENSE`).
 
 ## At a glance
 
+<p align="center"><img src="figures/mission_orbit.gif" width="820"></p>
+
+*One simulated run of the docking mission. Left: the chief on a circular orbit (drawn above the globe for visibility; the model's
+mean motion puts it at 146 km altitude) with the ground station on the rotating Earth and its update beam every 15 minutes.
+Right: the chief-centred LVLH frame with the deputy's true position (filled), its estimate (hollow), the angles-only line of sight
+to the chief, and the 5 km proximity zone, which turns active with one-second updates at the end. Rendered by
+`scripts/make_orbit_gif.py`.*
+
 ![From mission geometry to set-valued verification](figures/pipeline.png)
 
 *The pipeline of the paper: (a) the ARPOD mission geometry with ground updates, angles-only bearings, and the proximity sensor;
