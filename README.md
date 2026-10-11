@@ -72,8 +72,9 @@ The spacecraft models (dynamics, controllers, sensor programs, run scripts) live
 Docker (Linux x86-64 or arm64; ~10 minutes to build, CPU only):
 
 ```sh
-git clone --recursive https://github.com/IllinoisReliableAutonomyGroup/sensor-programs-tacas27.git
+git clone https://github.com/IllinoisReliableAutonomyGroup/sensor-programs-tacas27.git
 cd sensor-programs-tacas27
+git submodule update --init          # not --recursive: the auto_LiRPA fork references a nested submodule without a URL
 docker build -t sensor-programs .
 docker run --rm -it -v "$PWD/out:/workspace/out" sensor-programs bash run_row.sh rdv-2        # 10 s smoke test
 docker run --rm -it -v "$PWD/out:/workspace/out" sensor-programs bash run_row.sh apo-avoid    # ~2 min
@@ -83,9 +84,9 @@ docker run --rm -it -v "$PWD/out:/workspace/out" sensor-programs bash run_row.sh
 Native (macOS or Linux, Python 3.10 or 3.11):
 
 ```sh
-git clone --recursive https://github.com/IllinoisReliableAutonomyGroup/sensor-programs-tacas27.git
+git clone https://github.com/IllinoisReliableAutonomyGroup/sensor-programs-tacas27.git
 cd sensor-programs-tacas27
-bash env/native.sh python3.10            # creates ./venv and prepares the submodule
+bash env/native.sh python3.10            # runs `git submodule update --init` itself            # creates ./venv and prepares the submodule
 VENV=./venv bash run_row.sh rdv-2
 ```
 
@@ -131,6 +132,9 @@ Dockerfile            reproduction image
 * The MPC in the docking and reach-avoid agents solves with HiGHS (`cvxpy` + `highspy`). Without `highspy` the docking agent
   silently falls back to LQR and prints "MPC was unable to find a solution" on every step; the numbers then do not reproduce.
   Both packages are in `requirements-pinned.txt`.
+* Clone without `--recursive`: Alex Yuan's auto_LiRPA fork records a nested submodule (`jax_guam`) with no URL, which makes a
+  recursive clone fail; `git submodule update --init` (one level) is what the setup needs. For a faster fetch of the 250 MB Verse
+  history use `git submodule update --init --depth 1`.
 * Scripts must run from the Verse root with `demo/aprod` on `sys.path` and the script's own directory first, which the runner does.
 * Parallel runs need separate checkouts: the parser cache (`demo/aprod/parsed_wrap/parse_cache/`) and the MPC reference file
   (`demo/aprod/refs.pkl`) are repo-relative and cleared at the start of every script.
