@@ -7,6 +7,55 @@ table be re-run with one command.
 Reliable Autonomy Group, University of Illinois Urbana-Champaign. Code of the Verse library and of this artifact is under the
 University of Illinois/NCSA Open Source License (see `LICENSE`).
 
+## At a glance
+
+![From mission geometry to set-valued verification](figures/pipeline.png)
+
+*The pipeline of the paper: (a) the ARPOD mission geometry with ground updates, angles-only bearings, and the proximity sensor;
+(b) the modular hybrid model whose discrete logic reads observations produced by a sensor program; (c) the set-lifted model, where
+the sensor parser lifts the sensor program to sets while Verse lifts guards, resets, and flows; (d) the resulting reachable sets
+(blue) against nominal simulations (red).*
+
+<table>
+<tr>
+<td align="center"><img src="figures/docking_fig.png" width="330"><br><em>Docking geometry: deputy on a parking orbit, chief at the origin, ground station updates, angles-only bearing, proximity sensing inside the shaded zone.</em></td>
+<td align="center"><img src="figures/docking_verse_full_sim.png" width="170"> <img src="figures/docking_verse_full.png" width="170"> <img src="figures/docking_verse_full_counterexample.png" width="170"><br><em>Docking, x–y plane in km. Left: 25 nominal simulations (0.5 km ground noise, 15 min updates). Middle: the verified reachable set. Right: the degraded configuration (1.25 km, 20 min); the purple trace enters Docking with its estimate outside the mode-entry box.</em></td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td align="center"><img src="figures/docking_verse_simple.png" width="160"><br><em>Verse</em></td>
+<td align="center"><img src="figures/docking_julia.png" width="160"><br><em>JuliaReach</em></td>
+<td align="center"><img src="figures/docking_cora.png" width="160"><br><em>CORA</em></td>
+<td><em>Simplified docking model with time-based guards, the shared baseline of Section 5.4: Verse 26.7 s, JuliaReach 43.7 s, CORA 716 s (Alex Yuan's machine); Verse 12.5 s on an Apple M2 (<code>tools-baseline</code>).</em></td>
+</tr>
+</table>
+
+## Results table (Table 2 of the paper)
+
+Base rows are the submission's numbers; rows naming a constant change that one constant from the base values
+(ground-noise radius 0.5 km, update period 15 min, initial estimation error bound 2.5) and were run for the revision on an Apple M2.
+A/I and F/I are the average and final L1-diameter of the reachable set relative to the initial set; the Sim columns are the same
+ratios on envelopes of 25 random simulations.
+
+| Scenario | n | Runtime (s) | A/I | F/I | A/I Sim | F/I Sim | Verdict |
+|---|---:|---:|---:|---:|---:|---:|---|
+| apo-dock | 18 | 4455.17 | 0.70 | 0.73 | 0.30 | 0.04 | verified |
+| apo-dock, T_g = 10 min | 18 | 665.16 | 0.63 | 0.81 | 0.22 | 0.00 | verified |
+| apo-avoid | 24 | 125.01 | 0.66 | 0.58 | 0.53 | 0.11 | verified |
+| apo-avoid, ε_g,max = 0.25 km | 24 | 101.16 | 0.60 | 0.50 | 0.39 | 0.05 | verified |
+| apo-avoid, T_g = 10 min | 24 | 101.44 | 0.59 | 0.62 | 0.43 | 0.00 | verified |
+| apo-track-2 | 36 | 279.29 | 0.75 | 0.79 | 0.35 | 0.15 | inconclusive |
+| apo-track-2, \|e⁰\| ≤ 1 | 36 | 158.88 | 0.47 | 0.55 | 0.23 | 0.14 | verified |
+| apo-track-3 | 54 | 670.37 | 0.87 | 0.82 | 0.43 | 0.14 | inconclusive |
+| apo-track-3, \|e⁰\| ≤ 1 | 54 | 490.41 | 0.75 | 0.82 | 0.32 | 0.14 | verified |
+| rdv-2 | 8 | 4.57 | 4.76 | 24.12 | 1.76 | 1.31 | verified |
+| rdv-3 | 12 | 215.88 | 286.40 | 1248.03 | 1.039 | 0.00 | inconclusive |
+
+Verdicts: *verified* when the containment or emptiness check holds on the computed sets; *violated* when a concrete trajectory
+witnesses the failure; *inconclusive* when the over-approximation meets the unsafe set and no witness is available.
+
 ## What is pinned
 
 | component | where | pinned at |
