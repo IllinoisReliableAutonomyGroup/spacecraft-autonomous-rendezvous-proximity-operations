@@ -25,6 +25,15 @@ the sensor parser lifts the sensor program to sets while Verse lifts guards, res
 
 <table>
 <tr>
+<td align="center"><img src="figures/docking_nominal.gif" width="300"><br><em>Nominal sensing: the verified reachable box of the true position (blue) advances with eight simulated deputies (red) inside it; the green dashed box is the mode-entry box B on the estimate.</em></td>
+<td align="center"><img src="figures/docking_degraded.gif" width="300"><br><em>Degraded sensing (1.25 km, 20 min): the purple deputy enters Docking with its estimate (hollow square) outside B while its true position (filled square) is 5 km away, the witness that turns the inconclusive box check into a violation.</em></td>
+</tr>
+</table>
+
+<sub>Both animations are produced by <code>scripts/make_docking_gif.py</code> from the saved trees and fresh simulations.</sub>
+
+<table>
+<tr>
 <td align="center"><img src="figures/docking_verse_simple.png" width="160"><br><em>Verse</em></td>
 <td align="center"><img src="figures/docking_julia.png" width="160"><br><em>JuliaReach</em></td>
 <td align="center"><img src="figures/docking_cora.png" width="160"><br><em>CORA</em></td>

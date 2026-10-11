@@ -53,7 +53,7 @@ if a.box:
         e = s["entry"]
         if e is not None and not (x0 - hx <= e[7] <= x0 + hx and y0 - hy <= e[8] <= y0 + hy): witness = i; break
 # --- render ---
-fig, ax = plt.subplots(figsize=(5, 7.2), dpi=90)
+fig, ax = plt.subplots(figsize=(5.2, 7.4), dpi=125)
 times = list(range(0, T + 1, a.step))
 def draw(i):
     t = times[i]; ax.clear()
@@ -70,7 +70,7 @@ def draw(i):
         if m.any(): ax.plot(s["x"][m][-1], s["y"][m][-1], "o", color=col, ms=3)
         if j == witness and s["entry"] is not None and s["entry"][0] <= t:
             ax.plot(s["entry"][7], s["entry"][8], "s", color=col, ms=6, mfc="none"); ax.plot(s["entry"][1], s["entry"][2], "s", color=col, ms=6)
-    ax.text(-48, -96, "blue: verified reachable box (true position)\nred: simulations" + ("\npurple: enters Docking with estimate (hollow) outside B" if witness is not None else ""), fontsize=7)
+    ax.text(-48, -96, "blue: verified reachable box (true position)\nred: simulations" + ("\npurple: enters Docking with estimate (hollow) outside B" if witness is not None else ""), fontsize=8)
 anim = animation.FuncAnimation(fig, draw, frames=len(times), interval=60)
 anim.save(a.out, writer=animation.PillowWriter(fps=16))
 print(f"[gif] {a.out}: {len(times)} frames, {len(sims)} sims, witness={'sim %d' % witness if witness is not None else 'none'}, size {os.path.getsize(a.out)/1e6:.1f} MB")
