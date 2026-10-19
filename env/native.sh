@@ -4,7 +4,7 @@
 set -e
 PY=${1:-python3}
 cd "$(dirname "$0")/.."
-git submodule update --init
+if [ -d .git ]; then git submodule update --init; else echo "vendored tree (no .git): skipping submodule init"; fi
 $PY -m venv venv
 ./venv/bin/pip install --upgrade pip setuptools wheel
 ./venv/bin/pip install --index-url https://download.pytorch.org/whl/cpu torch==2.3.1 torchvision==0.18.1

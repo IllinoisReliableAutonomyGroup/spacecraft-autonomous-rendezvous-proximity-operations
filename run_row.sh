@@ -7,7 +7,7 @@
 #          apo-track-2 apo-track-2-e1 apo-track-3 apo-track-3-e1  rdv-2 rdv-3  tools-baseline
 set -e
 cd "$(dirname "$0")"; ROOT=$PWD; V=$ROOT/verse; A=$V/demo/aprod
-PY=${VENV:+$VENV/bin/python}; PY=${PY:-python}
+if [ -n "$VENV" ]; then VENV=$(cd "$VENV" && pwd) || { echo "VENV=$VENV not found"; exit 1; }; PY=$VENV/bin/python; else PY=python; fi   # absolute: the run below changes directory
 export OMP_NUM_THREADS=${OMP_NUM_THREADS:-2} MKL_NUM_THREADS=${MKL_NUM_THREADS:-2} PYTHONWARNINGS=ignore
 row=$1; [ -n "$row" ] || { sed -n 2,7p "$0"; exit 1; }
 OUT=$ROOT/out/$row; mkdir -p "$OUT"
@@ -38,8 +38,9 @@ case $row in
 esac
 rm -f $A/*.bak
 echo "== $row: verifying ($script) =="
-( cd "$V" && PYTHONPATH="$V:$A" $PY "$ROOT/scripts/run_verse_headless.py" "$V" "$script" "$OUT/tree" ) 2>&1 | grep -v 'ImportWarning\|_SixMeta\|^$\|polytope\|linprog' | grep '\[runner\]\|F/I\|Sim results\|Traceback\|Error' || true
-tree=$(ls "$OUT"/tree_0.json 2>/dev/null || ls "$OUT"/tree_0.pkl)
+( cd "$V" && PYTHONPATH="$V:$A" "$PY" "$ROOT/scripts/run_verse_headless.py" "$V" "$script" "$OUT/tree" ) > "$OUT/run.log" 2>&1 || true
+grep -v 'ImportWarning\|_SixMeta\|^$\|polytope\|linprog' "$OUT/run.log" | grep '\[runner\]\|F/I\|Sim results\|Traceback\|Error\|No such file\|not found' || true
+tree=$(ls "$OUT"/tree_0.json 2>/dev/null || ls "$OUT"/tree_0.pkl 2>/dev/null) || { echo "!! no tree produced; see $OUT/run.log (last lines follow)"; tail -5 "$OUT/run.log"; exit 1; }
 echo "== $row: property check =="
 case $row in
   apo-dock*)   $PY scripts/verdicts.py "$V" "$tree" --eps-g 10 --v-g 1e9 --box 8.5 -73 2.5 2 --json "$OUT/verdict.json" | grep 'MISSION\|MODE-ENTRY\|entry into' ;;
