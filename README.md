@@ -181,7 +181,8 @@ deputy's own estimate, which is where the sensing pipeline bears on the result.
 
 * **Badges applied for:** Available, Functional, Reusable.
 * **Artifact:** this repository, github.com/IllinoisReliableAutonomyGroup/spacecraft-autonomous-rendezvous-proximity-operations, and
-  the self-contained archive `artifact-selfcontained.zip` attached to its `v1.0-ae` release (submodules vendored, no git history, 108 MB);
+  the self-contained archive `spacecraft-apo-artifact-v1.0-ae.zip` attached to its `v1.0-ae` release (submodules vendored, git history and
+  Verse's unrelated docs, tutorial, and demos omitted, 37 MB);
   the archival copy is on Zenodo (DOI to be added here when the deposit is published).
 * **Extra requirements:** none. x86-64 or arm64 Linux or macOS, Docker or Python 3.10/3.11, about 4 GB of disk for the image, and network
   access during the image build for the pinned Python packages. No GPU, no proprietary software.
