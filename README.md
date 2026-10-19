@@ -177,6 +177,25 @@ deputy's own estimate, which is where the sensing pipeline bears on the result.
 * `apo-track`: deputies never come within 5 km of each other.
 * `rdv`: every agent reaches `Complete` by the horizon within 3.1 m of its partner, and no two agents come within 1 m.
 
+## Artifact evaluation (TACAS 2027)
+
+* **Badges applied for:** Available, Functional, Reusable.
+* **Artifact:** this repository, github.com/IllinoisReliableAutonomyGroup/spacecraft-autonomous-rendezvous-proximity-operations, and
+  the self-contained archive `artifact-selfcontained.zip` attached to its `v1.0-ae` release (submodules vendored, no git history, 108 MB);
+  the archival copy is on Zenodo (DOI to be added here when the deposit is published).
+* **Extra requirements:** none. x86-64 or arm64 Linux or macOS, Docker or Python 3.10/3.11, about 4 GB of disk for the image, and network
+  access during the image build for the pinned Python packages. No GPU, no proprietary software.
+* **Smoke test, about 6 minutes:** `git submodule update --init --depth 1 && docker build -t sensor-programs .` (2 to 3 minutes), then
+  `docker run --rm -v "$PWD/out:/workspace/out" sensor-programs bash run_row.sh rdv-2` (10 s) and `... run_row.sh apo-avoid` (2 min).
+  Expected: the reach-avoid row prints a certified separation of 2.75 km, the rendezvous row completes with every leaf in `Complete`;
+  both match `expected_results.md`. Natively: `bash env/native.sh python3.10` then `make smoke`.
+* **Full reproduction:** `make all` re-runs every row of Table 2 (about 2.5 hours on a laptop; the docking rows dominate), and
+  `make sensitivity` the configurations of Section 5.3 (about 2 hours). `expected_results.md` maps every row and every sensitivity
+  claim to the command that produces it, with the expected numbers and the tolerance to expect from the sampled bloating.
+  The CORA and JuliaReach sides of the cross-tool comparison are not included; the Verse side is (`tools-baseline`).
+* **Reuse:** `run_row.sh` is a template for new rows (one `case` entry sets the scenario's constants), `scripts/verdicts.py` and
+  `scripts/pair_separation.py` evaluate any saved tree, and the scenario models under `verse/demo/aprod/` are ordinary Verse scenarios.
+
 ## Tested on
 
 * Native path on macOS 15 (Apple M2, Python 3.10, 2026-10-10): fresh clone, `git submodule update --init --depth 1`,
