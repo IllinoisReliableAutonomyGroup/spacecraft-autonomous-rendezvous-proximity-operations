@@ -1,6 +1,6 @@
 # Verifying Autonomous Spacecraft Proximity Operations with Observation-Guarded Hybrid Systems
 
-Artifact and scenario models
+Artifact and scenario models. Archived at Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23463337.svg)](https://doi.org/10.5281/zenodo.23463337)
 
 Companion artifact for *Verifying Autonomous Spacecraft Proximity Operations with Observation-Guarded Hybrid Systems*
 (Alex Yuan, Kristina Miller, Sayan Mitra; submitted to TACAS 2027). It pins the exact code that produced the paper's results and
@@ -183,7 +183,7 @@ deputy's own estimate, which is where the sensing pipeline bears on the result.
 * **Artifact:** this repository, github.com/IllinoisReliableAutonomyGroup/spacecraft-autonomous-rendezvous-proximity-operations, and
   the self-contained archive `spacecraft-apo-artifact-v1.0-ae.zip` attached to its `v1.0-ae` release (submodules vendored, git history and
   Verse's unrelated docs, tutorial, and demos omitted, 37 MB);
-  the archival copy is on Zenodo (DOI to be added here when the deposit is published).
+  the archival copy is on Zenodo, DOI [10.5281/zenodo.23463337](https://doi.org/10.5281/zenodo.23463337).
 * **Extra requirements:** none. x86-64 or arm64 Linux or macOS, Docker or Python 3.10/3.11, about 4 GB of disk for the image, and network
   access during the image build for the pinned Python packages. No GPU, no proprietary software.
 * **Smoke test, about 6 minutes:** `git submodule update --init --depth 1 && docker build -t sensor-programs .` (2 to 3 minutes), then

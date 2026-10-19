@@ -11,6 +11,12 @@ authors:
     given-names: Sayan
     affiliation: "University of Illinois Urbana-Champaign"
 repository-code: "https://github.com/IllinoisReliableAutonomyGroup/spacecraft-autonomous-rendezvous-proximity-operations"
+doi: 10.5281/zenodo.23463337
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23463337
+    description: "Zenodo archive of the artifact (v1.0.1-ae)"
+version: 1.0.1-ae
 license: NCSA
 date-released: 2026-10-10
 preferred-citation:
